@@ -1,7 +1,14 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
-    <div>
-      this is page
+    <div className="text-center">
+      <div>
+        this is page
+      </div>
+      <div>
+        <Link href="/waiting">Go to waiting page</Link>
+      </div>
     </div>
   );
 }
