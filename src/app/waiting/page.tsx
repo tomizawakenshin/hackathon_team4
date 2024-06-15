@@ -12,9 +12,6 @@ export default function Waiting() {
       <div>
         開始までお待ち下さい……………………
       </div>
-      <div>
-        <Link href="post-quiz">Go to PostQuiz</Link>
-      </div>
     </div>
   );
 }
