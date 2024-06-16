@@ -9,4 +9,5 @@ export default {
   trailingComma: "es5",
   endOfLine: "lf",
   singleAttributePerLine: true,
+  semi: true,
 };
