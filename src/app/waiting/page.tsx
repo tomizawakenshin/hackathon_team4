@@ -1,8 +1,22 @@
 "use client";
 
+import { Game } from "@/logics/game";
+import { goToPage } from "@/logics/goToPage";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Waiting() {
+  useEffect(() => {
+    const game = Game.getInstance();
+    game.addGameStartEventListener(() => {
+      console.log("Start Event Handler");
+      goToPage("/post");
+    });
+    // development buildではuseEffectは2回実行されるそうです
+    // https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development
+    console.log("subscribe event");
+  }, []);
+
   return (
     <div className="text-center">
       <div className="flex justify-center">
@@ -24,6 +38,15 @@ export default function Waiting() {
         <div>in チーム1</div>
       </div>
       <div>開始までお待ち下さい……………………</div>
+        <button
+          onClick={() => {
+            console.log("Game Start button clicked");
+            const game = Game.getInstance();
+            game.start();
+          }}
+        >
+          Game Start
+        </button>
     </div>
   );
 }

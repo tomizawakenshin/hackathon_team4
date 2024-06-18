@@ -1,8 +1,13 @@
 "use client"
 
+import { Game } from "@/logics/game";
+
 export default function Admin() {
   function gameStartButtonHandler() {
-    console.log("Game Start!")
+    const game = Game.getInstance();
+    game.start();
+
+    console.log("Game Start!");
   }
 
   return (
