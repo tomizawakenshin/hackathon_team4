@@ -1,11 +1,20 @@
-const SubmitButton: React.FC = () => {
+interface SubmitButtonProps {
+  isFormValid: boolean;
+  setIsFormValid: (value: boolean) => void;
+}
+
+const SubmitButton: React.FC<SubmitButtonProps> = ({
+  isFormValid,
+  setIsFormValid,
+}) => {
   return (
     <div className="flex justify-center">
       <button
         type="submit"
-        className="mt-4 w-full max-w-40 px-4 py-2 text-white bg-blue-500 rounded"
+        disabled={!isFormValid}
+        className={`mt-2 w-full max-w-28 px-4 py-2 font-semibold text-white rounded-full ${isFormValid ? "bg-red-300" : "bg-gray-400"}`}
       >
-        投稿
+        出題!
       </button>
     </div>
   );
