@@ -34,10 +34,7 @@ const PostPage: React.FC = () => {
       <form className="w-full max-w-72 mt-5" onSubmit={handleSubmit}>
         <QuestionInput question={question} setQuestion={setQuestion} />
         <AnswerList answers={answers} handleAnswerChange={handleAnswerChange} />
-        <SubmitButton
-          isFormValid={isFormValid}
-          setIsFormValid={setIsFormValid}
-        />
+        <SubmitButton isFormValid={isFormValid} />
       </form>
     </div>
   );

@@ -3,10 +3,7 @@ interface QuestionInputProps {
   setQuestion: (value: string) => void;
 }
 
-const QuestionInput: React.FC<QuestionInputProps> = ({
-  question,
-  setQuestion,
-}) => {
+const QuestionInput: React.FC<QuestionInputProps> = ({ question, setQuestion }) => {
   return (
     <div className="flex flex-col">
       <label className="text-xl font-semibold" htmlFor="question">
