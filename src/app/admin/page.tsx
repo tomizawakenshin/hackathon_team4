@@ -1,7 +1,7 @@
 "use client";
 
 import { getAuth, onAuthStateChanged, signInAnonymously, signInWithPopup } from "firebase/auth";
-import { auth, db, provider } from "../firebase";
+import { auth, db, provider } from "../../logics/firebase";
 import { addDoc, collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useEffect, useState } from "react";
