@@ -1,12 +1,8 @@
 interface SubmitButtonProps {
   isFormValid: boolean;
-  setIsFormValid: (value: boolean) => void;
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({
-  isFormValid,
-  setIsFormValid,
-}) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({ isFormValid }) => {
   return (
     <div className="flex justify-center">
       <button
