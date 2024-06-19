@@ -5,6 +5,7 @@ import { auth, db, provider } from "../firebase";
 import { addDoc, collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useEffect, useState } from "react";
+import TeamButtons from "@/components/TeamButtons";
 
 export default function Admin() {
   const [user] = useAuthState(auth);
@@ -15,6 +16,7 @@ export default function Admin() {
       try {
         const teamsCollection = collection(db, 'Teams');
         const TeamsSnapShot = await getDocs(teamsCollection);
+        console.log(TeamsSnapShot.size);
         setTeamsCount(TeamsSnapShot.size);
       } catch (err) {
         console.log(err);
@@ -40,51 +42,13 @@ export default function Admin() {
     });
   }
 
-  const JoinTeam = async () => {
-    try {
-
-      const docRef = await addDoc(collection(db, "Teams/team1/Member"), {
-        user_id: `${user?.uid}`
-
-      });
-    } catch (err) {
-      console.log("エラーを検知しました", err);
-    }
-  }
-
   return (
     <div>
       {user ? (
-        <div>
-          すでにログインしています！
-          <div className="space-x-10 m-10">
-            <button
-              className="
-            bg-blue-500
-            hover:bg-blue-700
-            text-white
-            font-bold
-            py-2
-            px-4
-            rounded-full
-          "
-              onClick={JoinTeam}
-            >
-              team-1
-            </button>
-            <button
-              className="
-            bg-blue-500
-            hover:bg-blue-700
-            text-white
-            font-bold
-            py-2
-            px-4
-            rounded-full
-        "
-            >
-              team-2
-            </button>
+        <div className="text-center">
+          チームをセレクト
+          <div className="">
+            <TeamButtons teamsCount={teamsCount} />
           </div>
         </div>
 
