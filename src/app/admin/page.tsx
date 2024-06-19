@@ -5,6 +5,7 @@ import { auth, db, provider } from "../firebase";
 import { addDoc, collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useEffect, useState } from "react";
+import { Game } from "@/logics/game";
 import TeamButtons from "@/components/TeamButtons";
 
 export default function Admin() {
@@ -61,7 +62,20 @@ export default function Admin() {
           </button>
         </div>
       )}
-    </div>
-  )
-
-}
+      
+// export default function Admin() {
+//   function gameStartButtonHandler() {
+//     const game = Game.getInstance();
+//     game.start();
+// 
+//     console.log("Game Start!");
+//   }
+// 
+//   return (
+//     <div className="text-center">
+//       <div>管理画面</div>
+//       <button onClick={gameStartButtonHandler}>ゲームを開始</button>
+//     </div>
+//   )
+// 
+// }

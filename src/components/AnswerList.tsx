@@ -3,20 +3,23 @@ interface AnswerListProps {
   handleAnswerChange: (index: number, value: string) => void;
 }
 
-const AnswerList: React.FC<AnswerListProps> = ({ answers, handleAnswerChange }) => {
+const AnswerList: React.FC<AnswerListProps> = ({
+  answers,
+  handleAnswerChange,
+}) => {
   return (
     <div className="flex flex-col mt-5">
-      <p className="text-xl">4つの回答を入力してください:</p>
+      <p className="mb-2 text-xl font-semibold">4つの回答を準備...</p>
       {answers.map((answer, index) => (
         <div key={index}>
           <input
             id={`answer${index}`}
-            className="p-2 mt-2 border border-gray-700 h-10 rounded-md resize-none w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="p-2 mb-6 font-semibold text-center bg-yellow-300 h-10 rounded-lg resize-none w-full focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
             value={answer}
             onChange={(e) => {
               handleAnswerChange(index, e.target.value);
             }}
-            placeholder={`回答${index + 1}を入力してください`}
+            placeholder={`回答${index + 1}`}
           ></input>
         </div>
       ))}
