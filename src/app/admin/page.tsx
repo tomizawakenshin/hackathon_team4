@@ -1,7 +1,7 @@
 "use client";
 
 import { getAuth, onAuthStateChanged, signInAnonymously, signInWithPopup } from "firebase/auth";
-import { auth, db, provider } from "../firebase";
+import { auth, db, provider } from "../../logics/firebase";
 import { addDoc, collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useEffect, useState } from "react";
@@ -27,6 +27,13 @@ export default function Admin() {
     fetchTeamsCount();
   }, [])
 
+  function gameStart() {
+    const game = Game.getInstance();
+    game.start();
+
+    console.log("Game Start!");
+  }
+
   const signInWithAnonymous = () => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -43,6 +50,11 @@ export default function Admin() {
     });
   }
 
+  function gameStartButtonHandler() {
+    signInWithAnonymous();
+    gameStart();
+  }
+
   return (
     <div>
       {user ? (
@@ -57,19 +69,16 @@ export default function Admin() {
         <div className="text-center">
           <div>管理画面</div>
           <button
-            onClick={signInWithAnonymous}>
+            onClick={gameStartButtonHandler}>
             ゲームを開始
           </button>
         </div>
       )}
+    </div>
+  );
+}
       
 // export default function Admin() {
-//   function gameStartButtonHandler() {
-//     const game = Game.getInstance();
-//     game.start();
-// 
-//     console.log("Game Start!");
-//   }
 // 
 //   return (
 //     <div className="text-center">
