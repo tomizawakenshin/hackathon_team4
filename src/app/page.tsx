@@ -1,7 +1,6 @@
 "use client";
 
 import TeamButtons from "@/components/TeamButtons";
-import { fetchTeamsCount } from "@/logics/CountTheNumberOfTeams";
 import { signInWithAnonymous } from "@/logics/SignInWithAnonymous";
 import { fetchTeams } from "@/logics/fetchTeams";
 import { auth } from "@/logics/firebase";
@@ -11,10 +10,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Home() {
   const [user] = useAuthState(auth);
-  const [teamsCount, setTeamsCount] = useState(0);
   const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
+    // firestoreから全チームを読み取ってパースしてteamsステートにセット
     fetchTeams().then((teamSnapshots) =>
       setTeams(
         teamSnapshots.map((teamSnapshot) => {
@@ -30,14 +29,6 @@ export default function Home() {
         })
       )
     );
-
-    const getTeamsCount = async () => {
-      const count = await fetchTeamsCount();
-      if (count != undefined) {
-        setTeamsCount(count);
-      }
-    };
-    getTeamsCount();
   }, []);
 
   return (
