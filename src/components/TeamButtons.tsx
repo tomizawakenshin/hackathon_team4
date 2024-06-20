@@ -1,14 +1,14 @@
-import { auth, db } from "@/logics/firebase";
+import { setTeam } from "@/logics/currentTeam";
+import { auth } from "@/logics/firebase";
 import { joinTeam } from "@/logics/server/joinTeam";
 import { Team } from "@/logics/types/team";
-import { addDoc, collection } from "firebase/firestore";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-interface teamsCountProps {
+interface Props {
   teams: Team[];
 }
-const TeamButtons = (props: teamsCountProps) => {
+const TeamButtons = (props: Props) => {
   // const JoinTeam = async (teamNum: Number) => {
   //   try {
   //     const docRef = await addDoc(collection(db, `Teams/team${teamNum}/Member`), {
@@ -33,9 +33,10 @@ const TeamButtons = (props: teamsCountProps) => {
 
   const [user] = useAuthState(auth);
 
-  function buttonClickHandler(teamId: string) {
-    if (user == undefined || null) throw new Error("user is not logged in")
-    joinTeam(teamId, user.uid)
+  function buttonClickHandler(team: Team) {
+    if (user == undefined || null) throw new Error("user is not logged in");
+    joinTeam(team.id, user.uid);
+    setTeam(team);
     console.log("log");
   }
 
@@ -43,7 +44,7 @@ const TeamButtons = (props: teamsCountProps) => {
     <button
       key={team.id}
       onClick={() => {
-        buttonClickHandler(team.id)
+        buttonClickHandler(team);
       }}
       className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
     >
