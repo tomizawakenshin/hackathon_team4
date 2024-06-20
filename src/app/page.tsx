@@ -5,13 +5,14 @@ import { fetchTeamsCount } from "@/logics/CountTheNumberOfTeams";
 import { signInWithAnonymous } from "@/logics/SignInWithAnonymous";
 import { fetchTeams } from "@/logics/fetchTeams";
 import { auth } from "@/logics/firebase";
+import { Team } from "@/logics/types/team";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Home() {
   const [user] = useAuthState(auth);
   const [teamsCount, setTeamsCount] = useState(0);
-  const [teams, setTeams] = useState<Teams[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
     fetchTeams().then((teamSnapshots) =>
