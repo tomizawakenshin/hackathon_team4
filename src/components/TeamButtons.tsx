@@ -1,4 +1,5 @@
 import { auth, db } from '@/logics/firebase';
+import { goToPage } from '@/logics/goToPage';
 import { addDoc, collection } from 'firebase/firestore';
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -31,7 +32,10 @@ const TeamButtons = ({ teamsCount }: teamsCountProps) => {
               px-4
               rounded-full
             "
-                onClick={() => JoinTeam(index + 1)} // Adjust JoinTeam function as needed
+                onClick={() => {
+                    JoinTeam(index + 1)
+                    goToPage('/waiting')
+                }}
             >
                 team-{index + 1}
             </button>
