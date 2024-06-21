@@ -5,6 +5,7 @@ import { Team } from "@/logics/types/team";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
+
 interface Props {
   teams: Team[];
 }
@@ -30,6 +31,7 @@ const TeamButtons = (props: Props) => {
   //     </button>
   //   ));
   // };
+
 
   const [user] = useAuthState(auth);
 
