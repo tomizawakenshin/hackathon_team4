@@ -1,6 +1,6 @@
 "use client";
 
-import { handleStartGame } from "@/logics/GameStartFlagHandler";
+import { handleStartGame } from "@/logics/FetchStartAPI";
 import { listenToGameStart } from "@/logics/MonitorGameStartFlag";
 import { goToPage } from "@/logics/server/goToPage";
 import { useEffect } from "react";
