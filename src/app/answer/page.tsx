@@ -44,7 +44,7 @@ const InnerAnswerPage: React.FC = () => {
 
   function getIndexParams(): number {
     const searchParams = useSearchParams();
-    const index = searchParams.get("index");
+    const index = searchParams?.get("index");
     if (index == null) throw new Error("Quiz index is not specified");
     const intIndex = parseInt(index);
     return intIndex;
