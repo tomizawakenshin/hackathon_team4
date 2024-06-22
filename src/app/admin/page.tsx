@@ -1,6 +1,6 @@
 "use client";
 
-import { handleStartGame } from "@/logics/GameStartFlagHandler";
+import { handleStartGame } from "@/logics/FetchStartAPI";
 
 export default function Admin() {
   return (
