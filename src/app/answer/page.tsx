@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
 import { Quiz } from "@/logics/types/quiz";
 import { submitAnswer } from "@/logics/server/submitAnswer";
-import { getTeam } from "@/logics/currentTeam";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/logics/firebase";
 import { fetchQuizByIndex, fetchQuizzes } from "@/logics/fetchQuiz";
+import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
 
 function getIndexParams(searchParams: ReadonlyURLSearchParams): number {
   const index = searchParams.get("index");
@@ -43,8 +43,8 @@ const AnswerPage: React.FC = () => {
     if (selectedOption == null) throw new Error("No option is selected");
     if (quiz == undefined) throw new Error("Quiz is not fetched yet");
 
-    const currentTeam = getTeam();
-    submitAnswer(quiz.id, currentTeam.id, user.uid, selectedOption);
+    const currentTeamId = await fetchCurrentTeamId(user.uid);
+    submitAnswer(quiz.id, currentTeamId, user.uid, selectedOption);
     if (quizIndex >= (await fetchQuizzes()).length) {
       router.push(`/waiting`);
     } else {
@@ -74,6 +74,7 @@ const AnswerPage: React.FC = () => {
       >
         回答！
       </button>
+      <div>{user?.uid}</div>
     </div>
   );
 };
