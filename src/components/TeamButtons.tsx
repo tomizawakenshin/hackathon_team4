@@ -1,4 +1,3 @@
-import { setTeam } from "@/logics/currentTeam";
 import { auth } from "@/logics/firebase";
 import { joinTeam } from "@/logics/server/joinTeam";
 import { Team } from "@/logics/types/team";
@@ -36,7 +35,6 @@ const TeamButtons = (props: Props) => {
   function buttonClickHandler(team: Team) {
     if (user == undefined || null) throw new Error("user is not logged in");
     joinTeam(team.id, user.uid);
-    setTeam(team);
     console.log("log");
   }
 
