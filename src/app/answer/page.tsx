@@ -9,19 +9,12 @@ import { auth } from "@/logics/firebase";
 import { fetchQuizByIndex, fetchQuizzes } from "@/logics/fetchQuiz";
 import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
 
-function getIndexParams(searchParams: ReadonlyURLSearchParams): number {
-  const index = searchParams.get("index");
-  if (index == null) throw new Error("Quiz index is not specified");
-  const intIndex = parseInt(index);
-  return intIndex;
-}
 
 // クイズのインデックスをクエリパラメータで受け取って、対応するクイズの回答画面を表示します。
 const AnswerPage: React.FC = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
-  const searchParams = useSearchParams();
-  const quizIndex = getIndexParams(searchParams);
+  const quizIndex = getIndexParams();
 
   const [quiz, setQuiz] = useState<Quiz>({
     id: "",
@@ -37,6 +30,14 @@ const AnswerPage: React.FC = () => {
       setQuiz(quiz);
     });
   }, [quizIndex]);
+
+  function getIndexParams(): number {
+    const searchParams = useSearchParams();
+    const index = searchParams.get("index");
+    if (index == null) throw new Error("Quiz index is not specified");
+    const intIndex = parseInt(index);
+    return intIndex;
+  }
 
   const handleSubmit = async () => {
     if (user == undefined || null) throw new Error("You are not logged in!");
@@ -60,7 +61,7 @@ const AnswerPage: React.FC = () => {
         {quiz.options.map((option, index) => (
           <button
             key={index}
-            onClick={() => {setSelectedOption(index);}}
+            onClick={() => { setSelectedOption(index); }}
             className={`w-full min-w-32 rounded-lg px-2 py-2 font-semibold transition-transform duration-300 focus:outline-none ${buttonColors[index]} ${selectedOption === index ? "scale-90 transform" : "scale-100 transform"} `}
           >
             {option}
