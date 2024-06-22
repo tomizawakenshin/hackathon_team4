@@ -1,7 +1,7 @@
 "use client";
 
 import { Game } from "@/logics/game";
-import { goToPage } from "@/logics/goToPage";
+import { goToPage } from "@/logics/server/goToPage";
 import Link from "next/link";
 import { useEffect } from "react";
 
