@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Quiz } from "@/logics/types/quiz";
-import { submitAnswer } from "@/logics/server/submitAnswer";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { submitAnswer } from "@/logics/server/submitAnswer";
 import { auth } from "@/logics/firebase";
-import { fetchQuizByIndex, fetchQuizzes } from "@/logics/fetchQuiz";
+import { fetchQuizzes } from "@/logics/fetchQuiz";
 import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
+import { useDisableScroll } from "@/hooks/useDisableScroll";
+import { useFetchQuiz } from "@/hooks/useFetchQuiz";
+import { getIndexParams } from "@/utils/getIndexParams";
+import QuizQuestion from "./QuizQuestion";
 import QuizOptions from "./QuizOptions";
 import SubmitButton from "./SubmitButton";
 
@@ -15,37 +18,9 @@ const InnerAnswerPage: React.FC = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const quizIndex = getIndexParams();
-
-  const [quiz, setQuiz] = useState<Quiz>({
-    id: "",
-    teamId: "",
-    question: "",
-    options: [],
-  });
+  const quiz = useFetchQuiz(quizIndex);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-
-  useEffect(() => {
-    // スクロールを禁止する
-    document.body.style.overflow = "hidden";
-    return () => {
-      // クリーンアップ時に元に戻す
-      document.body.style.overflow = "auto";
-    };
-  }, []);
-
-  useEffect(() => {
-    fetchQuizByIndex(quizIndex).then((quiz) => {
-      setQuiz(quiz);
-    });
-  }, [quizIndex]);
-
-  function getIndexParams(): number {
-    const searchParams = useSearchParams();
-    const index = searchParams?.get("index");
-    if (index == null) throw new Error("Quiz index is not specified");
-    const intIndex = parseInt(index);
-    return intIndex;
-  }
+  useDisableScroll();
 
   const handleSubmit = async () => {
     if (user == undefined || null) throw new Error("You are not logged in!");
@@ -63,10 +38,7 @@ const InnerAnswerPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-green-300 text-white">
-      <div className="text-center max-w-80">
-        <h1 className="mb-6 text-3xl font-bold">問題!</h1>
-        <p className="text-xl font-semibold">{quiz.question}</p>
-      </div>
+      <QuizQuestion question={quiz.question} />
       <QuizOptions
         options={quiz.options}
         selectedOption={selectedOption}
