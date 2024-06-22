@@ -36,7 +36,7 @@ const AnswerPage: React.FC = () => {
     fetchQuizByIndex(quizIndex).then((quiz) => {
       setQuiz(quiz);
     });
-  }, []);
+  }, [quizIndex]);
 
   const handleSubmit = async () => {
     if (user == undefined || null) throw new Error("You are not logged in!");
@@ -45,7 +45,7 @@ const AnswerPage: React.FC = () => {
 
     const currentTeamId = await fetchCurrentTeamId(user.uid);
     submitAnswer(quiz.id, currentTeamId, user.uid, selectedOption);
-    if (quizIndex >= (await fetchQuizzes()).length) {
+    if (quizIndex >= (await fetchQuizzes()).length - 1) {
       router.push(`/waiting`);
     } else {
       router.push(`/answer?index=${quizIndex + 1}`);
