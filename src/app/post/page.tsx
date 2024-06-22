@@ -1,7 +1,7 @@
 "use client";
 
-import AnswerList from "@/components/AnswerList";
 import QuestionInput from "@/components/QuestionInput";
+import AnswerList from "@/components/AnswerList";
 import SubmitButton from "@/components/SubmitButton";
 import { useEffect, useState } from "react";
 
@@ -43,7 +43,7 @@ const PostPage: React.FC = () => {
       <form className="w-full max-w-80 mt-5" onSubmit={handleSubmit}>
         <QuestionInput question={question} setQuestion={setQuestion} />
         <AnswerList answers={answers} handleAnswerChange={handleAnswerChange} />
-        <SubmitButton isFormValid={isFormValid} />
+        <SubmitButton isFormValid={isFormValid} buttonText="出題!" />
       </form>
     </div>
   );
