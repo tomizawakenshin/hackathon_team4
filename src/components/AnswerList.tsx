@@ -8,13 +8,13 @@ const AnswerList: React.FC<AnswerListProps> = ({
   handleAnswerChange,
 }) => {
   return (
-    <div className="flex flex-col mt-5">
-      <p className="mb-2 text-xl font-semibold">4つの回答を準備...</p>
+    <div className="flex flex-col mt-8">
+      <p className="mb-2 text-3xl font-semibold">4つの回答を準備...</p>
       {answers.map((answer, index) => (
         <div key={index}>
           <input
             id={`answer${index}`}
-            className="p-2 mb-6 font-semibold text-center bg-yellow-300 h-10 rounded-lg resize-none w-full focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+            className="p-2 mb-6 h-16 text-2xl font-semibold text-center bg-yellow-300 rounded-lg resize-none w-full focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
             value={answer}
             onChange={(e) => {
               handleAnswerChange(index, e.target.value);
