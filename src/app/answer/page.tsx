@@ -9,9 +9,11 @@ import { auth } from "@/logics/firebase";
 import { fetchQuizByIndex, fetchQuizzes } from "@/logics/fetchQuiz";
 import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
 
-// クイズのインデックスをクエリパラメータで受け取って、対応するクイズの回答画面を表示します。
-// useSearchParamsはSuspenseで囲わないとbuild時にエラーを吐くそうです
-// https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+/**
+ * クイズのインデックスをクエリパラメータで受け取って、対応するクイズの回答画面を表示します。
+ * `useSearchParams`は`Suspense`で囲わないとbuild時にエラーを吐くそうです
+ * https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+ */
 export default function AnswerPage() {
   return (
     <Suspense>
@@ -19,7 +21,6 @@ export default function AnswerPage() {
     </Suspense>
   );
 }
-
 
 const InnerAnswerPage: React.FC = () => {
   const router = useRouter();
