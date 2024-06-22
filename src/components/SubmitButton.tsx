@@ -8,7 +8,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ isFormValid }) => {
       <button
         type="submit"
         disabled={!isFormValid}
-        className={`mt-2 w-full max-w-28 px-4 py-2 font-semibold text-white rounded-full ${isFormValid ? "bg-red-300" : "bg-gray-400"}`}
+        className={`mt-2 w-full max-w-32 px-4 py-2 text-2xl font-semibold text-white rounded-full ${isFormValid ? "bg-red-300" : "bg-gray-400"}`}
       >
         出題!
       </button>
