@@ -46,7 +46,7 @@ const AnswerPage: React.FC = () => {
     const currentTeamId = await fetchCurrentTeamId(user.uid);
     submitAnswer(quiz.id, currentTeamId, user.uid, selectedOption);
     if (quizIndex >= (await fetchQuizzes()).length - 1) {
-      router.push(`/waiting`);
+      router.push(`/result-waiting`);
     } else {
       router.push(`/answer?index=${quizIndex + 1}`);
     }
