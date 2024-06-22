@@ -14,22 +14,7 @@ export default function Home() {
   const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
-    // firestoreから全チームを読み取ってパースしてteamsステートにセット
-    fetchTeams().then((teamSnapshots) =>
-      setTeams(
-        teamSnapshots.map((teamSnapshot) => {
-          const teamData = teamSnapshot.data();
-
-          if (teamData.id == undefined) throw new ReferenceError("Id does not exist on database");
-          if (teamData.name == undefined) throw new ReferenceError("Name does not exist on database");
-
-          return {
-            id: teamData.id,
-            name: teamData.name,
-          };
-        })
-      )
-    );
+    fetchTeams().then((teams) => setTeams(teams));
     startWatchingAuthStateChange();
   }, []);
 
