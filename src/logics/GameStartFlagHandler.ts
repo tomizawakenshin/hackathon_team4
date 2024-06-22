@@ -1,21 +1,14 @@
-'use server'
-
-import { doc, getDoc, updateDoc } from "firebase/firestore"
-import { db } from "./firebase"
-
-export const StartGame = async () => {
-    const flagsDocRef = doc(db, 'Flags', 'flags');
+export const handleStartGame = async () => {
     try {
-        const flagsDoc = await getDoc(flagsDocRef);
-        if (flagsDoc.exists()) {
-            const currentFlagStatus = flagsDoc.data().isGameStart;
-            await updateDoc(flagsDocRef, {
-                isGameStart: !currentFlagStatus
-            });
-
+        const response = await fetch('/api/start-game', {
+            method: 'PUT',
+        });
+        if (response.ok) {
+            console.log('ゲームが開始されました');
+        } else {
+            console.error('ゲームの開始に失敗しました');
         }
-        console.log("Game started successfully");
-    } catch (err) {
-        console.error("Error starting game: ", err);
+    } catch (error) {
+        console.error('エラー:', error);
     }
-}
+};
