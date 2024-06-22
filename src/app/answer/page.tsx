@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Quiz } from "@/logics/types/quiz";
 import { submitAnswer } from "@/logics/server/submitAnswer";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -9,9 +9,19 @@ import { auth } from "@/logics/firebase";
 import { fetchQuizByIndex, fetchQuizzes } from "@/logics/fetchQuiz";
 import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
 
-
 // クイズのインデックスをクエリパラメータで受け取って、対応するクイズの回答画面を表示します。
-const AnswerPage: React.FC = () => {
+// useSearchParamsはSuspenseで囲わないとbuild時にエラーを吐くそうです
+// https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+export default function AnswerPage() {
+  return (
+    <Suspense>
+      <InnerAnswerPage />
+    </Suspense>
+  );
+}
+
+
+const InnerAnswerPage: React.FC = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const quizIndex = getIndexParams();
@@ -61,7 +71,9 @@ const AnswerPage: React.FC = () => {
         {quiz.options.map((option, index) => (
           <button
             key={index}
-            onClick={() => { setSelectedOption(index); }}
+            onClick={() => {
+              setSelectedOption(index);
+            }}
             className={`w-full min-w-32 rounded-lg px-2 py-2 font-semibold transition-transform duration-300 focus:outline-none ${buttonColors[index]} ${selectedOption === index ? "scale-90 transform" : "scale-100 transform"} `}
           >
             {option}
@@ -79,5 +91,3 @@ const AnswerPage: React.FC = () => {
     </div>
   );
 };
-
-export default AnswerPage;
