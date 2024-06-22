@@ -2,7 +2,7 @@
 
 import { StartGame } from "@/logics/GameStartFlagHandler";
 import { listenToGameStart } from "@/logics/MonitorGameStartFlag";
-import { goToPage } from "@/logics/goToPage";
+import { goToPage } from "@/logics/server/goToPage";
 import { useEffect } from "react";
 
 export default function Waiting() {

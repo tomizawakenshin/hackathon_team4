@@ -28,7 +28,6 @@ export class Game {
 
   // ゲームを開始
   public start() {
-    "use client";
     for (const eventListener of this.gameStartEventListeners) {
       eventListener();
     }

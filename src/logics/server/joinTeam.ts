@@ -2,13 +2,16 @@
 
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { registerTeamToFirestore } from "./registerUser";
 
-export async function joinTeam (teamId: string, uid: string) {
+// チームに参加します。
+export async function joinTeam (teamId: string, userId: string) {
   try {
-    const newMemberRef = doc(db, "teams", teamId, "members", uid);
+    const newMemberRef = doc(db, "teams", teamId, "members", userId);
     await setDoc(newMemberRef, {
-      uid: uid
+      uid: userId
     })
+    registerTeamToFirestore(userId, teamId);
   } catch (err) {
     console.log("エラーを検知しました", err);
   }
