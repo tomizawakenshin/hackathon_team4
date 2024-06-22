@@ -5,6 +5,7 @@ import { signInWithAnonymous } from "@/logics/SignInWithAnonymous";
 import { fetchTeams } from "@/logics/fetchTeams";
 import { auth } from "@/logics/firebase";
 import { Team } from "@/logics/types/team";
+import { startWatchingAuthStateChange } from "@/logics/startWatchingAuthStateChange";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -29,6 +30,7 @@ export default function Home() {
         })
       )
     );
+    startWatchingAuthStateChange();
   }, []);
 
   return (
