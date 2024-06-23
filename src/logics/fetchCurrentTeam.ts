@@ -1,7 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
-// ユーザの所属チームのIDを取得します。
+/** ユーザの所属チームのIDを取得します。 チーム名などが必要な場合はこの関数で得たチームIDをfetchTeamByIdに渡してください。 */
 export async function fetchCurrentTeamId(userId: string) {
   const userRef = doc(db, "users", userId);
   const userSnapshot = await getDoc(userRef);
