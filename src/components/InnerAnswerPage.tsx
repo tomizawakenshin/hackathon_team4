@@ -13,6 +13,7 @@ import { getIndexParams } from "@/utils/getIndexParams";
 import QuizQuestion from "./QuizQuestion";
 import QuizOptions from "./QuizOptions";
 import SubmitButton from "./SubmitButton";
+import { turnOnQuizCompletedFlag } from "@/logics/server/turnOnQuizCompletedFlag";
 
 const InnerAnswerPage: React.FC = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const InnerAnswerPage: React.FC = () => {
     if (quizIndex >= (await fetchQuizzes()).length - 1) {
       router.push(`/result-waiting`);
     } else {
+      turnOnQuizCompletedFlag(user.uid);
       router.push(`/answer?index=${quizIndex + 1}`);
     }
   };
