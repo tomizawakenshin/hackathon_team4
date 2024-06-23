@@ -31,9 +31,9 @@ const InnerAnswerPage: React.FC = () => {
     const currentTeamId = await fetchCurrentTeamId(user.uid);
     submitAnswer(quiz.id, currentTeamId, user.uid, selectedOption);
     if (quizIndex >= (await fetchQuizzes()).length - 1) {
+      await turnOnQuizCompletedFlag(user.uid);
       router.push(`/result-waiting`);
     } else {
-      turnOnQuizCompletedFlag(user.uid);
       router.push(`/answer?index=${quizIndex + 1}`);
     }
   };
