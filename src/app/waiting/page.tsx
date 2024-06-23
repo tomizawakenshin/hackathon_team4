@@ -1,6 +1,6 @@
 "use client";
 
-import { StartGame } from "@/logics/GameStartFlagHandler";
+import { handleStartGame } from "@/logics/FetchStartAPI";
 import { listenToGameStart } from "@/logics/MonitorGameStartFlag";
 import { goToPage } from "@/logics/server/goToPage";
 import { useEffect } from "react";
@@ -9,7 +9,7 @@ export default function Waiting() {
   useEffect(() => {
     const unsubscribe = listenToGameStart(() => {
       goToPage("/post");
-      StartGame();
+      handleStartGame();
     });
     // development buildではuseEffectは2回実行されるそうです
     // https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development

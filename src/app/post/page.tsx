@@ -1,7 +1,7 @@
 "use client";
 
-import AnswerList from "@/components/AnswerList";
 import QuestionInput from "@/components/QuestionInput";
+import AnswerList from "@/components/AnswerList";
 import SubmitButton from "@/components/SubmitButton";
 import { useEffect, useState } from "react";
 
@@ -9,6 +9,15 @@ const PostPage: React.FC = () => {
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
   const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    // スクロールを禁止する
+    document.body.style.overflow = "hidden";
+    return () => {
+      // クリーンアップ時に元に戻す
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   useEffect(() => {
     // フォームのバリデーションを行う
@@ -31,10 +40,10 @@ const PostPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center bg-blue-300 text-white">
-      <form className="w-full max-w-72 mt-5" onSubmit={handleSubmit}>
+      <form className="w-full max-w-80 mt-5" onSubmit={handleSubmit}>
         <QuestionInput question={question} setQuestion={setQuestion} />
         <AnswerList answers={answers} handleAnswerChange={handleAnswerChange} />
-        <SubmitButton isFormValid={isFormValid} />
+        <SubmitButton isFormValid={isFormValid} buttonText="出題!" />
       </form>
     </div>
   );

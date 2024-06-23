@@ -1,58 +1,35 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import bgImage from "@/assets/images/bg-resultPage.jpg";
+import TeamRanking from "@/components/TeamRanking";
+import { useDisableScroll } from "@/hooks/useDisableScroll";
 
 const ResultPage: React.FC = () => {
-  const router = useRouter();
-
-  // チーム名と%は仮置き
-  const [teamResults, setTeamResults] = useState([
-    { teamName: "チーム1", percentage: 75 },
-    { teamName: "チーム2", percentage: 75 },
-    { teamName: "チーム3", percentage: 75 },
-    { teamName: "チーム4", percentage: 50 },
-    { teamName: "チーム5", percentage: 50 },
-    { teamName: "チーム6", percentage: 25 },
-    { teamName: "チーム7", percentage: 25 },
-  ]);
-
-  //   useEffect(() => {
-  //     // チームの結果を取得するロジックを追加
-
-  //     const timer = setTimeout(() => {
-  //       router.push("/question");
-  //     }, 10000); // 10秒後に次の質問へ遷移
-
-  //     return () => clearTimeout(timer);
-  //   }, [router]);
+  const teams = [
+    { name: "チーム1", correctRate: 30 },
+    { name: "チーム2", correctRate: 80 },
+    { name: "チーム3", correctRate: 70 },
+    { name: "チーム4", correctRate: 90 },
+    { name: "チーム5", correctRate: 45 },
+    { name: "チーム6", correctRate: 30 },
+    { name: "チーム7", correctRate: 45 },
+    { name: "チーム8", correctRate: 50 },
+    { name: "チーム9", correctRate: 36 },
+    { name: "チーム10", correctRate: 34 },
+  ];
+  const sortedTeams = [...teams].sort((a, b) => b.correctRate - a.correctRate);
+  const maxCorrectRate = sortedTeams[0].correctRate;
+  useDisableScroll();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 text-gray-700">
-      <h1 className="text-4xl font-bold">投票結果</h1>
-      <div className="mt-2 ">
-        <h2 className="text-2xl text-center font-semibold">75%</h2>
-        <ul>
-          <li>
-            <p>75% - おにぎり</p>
-          </li>
-          <li>
-            <p>25% - カレー</p>
-          </li>
-        </ul>
-      </div>
-      <div className="flex flex-col mt-5 space-y-1 w-full max-w-80">
-        {teamResults.map((result, index) => (
-          <div
-            key={index}
-            className="flex p-2 border border-gray-700 rounded-md bg-white"
-          >
-            <h3>{index + 1}位</h3>
-            <p className="ml-40">
-              {result.teamName} {result.percentage}%
-            </p>
-          </div>
-        ))}
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgImage.src})` }}
+    >
+      <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-10"></div>
+      <div className="z-10 flex flex-col items-center w-full max-w-2xl p-8">
+        <h1 className="text-5xl font-bold text-orange-500">結果は...</h1>
+        <TeamRanking teams={sortedTeams} maxCorrectRate={maxCorrectRate} />
       </div>
     </div>
   );
