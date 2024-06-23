@@ -24,7 +24,6 @@ export default function Waiting() {
         <div>in チーム1</div>
       </div>
       <div>開始までお待ち下さい……………………</div>
-      {user?.uid}
     </div>
   );
 }
