@@ -4,8 +4,8 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { registerTeamToFirestore } from "./registerUser";
 
-// チームに参加します。
-export async function joinTeam (teamId: string, userId: string) {
+/** チームに参加します。teamドキュメントにuserIdを追加し、userドキュメントのteamIdフィールドを更新します。 */
+export async function joinTeam(teamId: string, userId: string) {
   try {
     const newMemberRef = doc(db, "teams", teamId, "members", userId);
     await setDoc(newMemberRef, {

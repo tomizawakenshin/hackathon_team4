@@ -1,16 +1,29 @@
 interface SubmitButtonProps {
-  isFormValid: boolean;
+  isFormValid?: boolean;
+  handleSubmit?: () => void;
+  selectedOption?: number | null;
+  buttonText: string;
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ isFormValid }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({
+  isFormValid,
+  handleSubmit,
+  selectedOption,
+  buttonText,
+}) => {
+  const isDisabled =
+    isFormValid !== undefined ? !isFormValid : selectedOption == null;
+
   return (
     <div className="flex justify-center">
       <button
-        type="submit"
-        disabled={!isFormValid}
-        className={`mt-2 w-full max-w-28 px-4 py-2 font-semibold text-white rounded-full ${isFormValid ? "bg-red-300" : "bg-gray-400"}`}
+        onClick={handleSubmit}
+        disabled={isDisabled}
+        className={`mt-2 w-full max-w-36 px-4 py-2 text-2xl font-semibold text-white rounded-full ${
+          isDisabled ? "bg-gray-400" : "bg-red-300"
+        }`}
       >
-        出題!
+        {buttonText}
       </button>
     </div>
   );

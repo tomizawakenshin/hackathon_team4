@@ -28,7 +28,7 @@ export const quizConverter = {
     return {
       id: data.id,
       teamId: data.teamId,
-      question: data.quiestion,
+      question: data.question,
       options: data.options,
     };
   },

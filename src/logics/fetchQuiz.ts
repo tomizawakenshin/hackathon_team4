@@ -2,7 +2,7 @@ import { QuerySnapshot, collection, doc, getDoc, getDocs } from "firebase/firest
 import { db } from "./firebase";
 import { quizConverter } from "./types/quiz";
 
-// 指定したIDのクイズを読み込んで返します。
+/**  指定したIDのクイズを読み込んで返します。 */
 export async function fetchQuizById(quizId: string) {
   const quizRef = doc(db, "quizzes", quizId);
   const quizSnapshot = await getDoc(quizRef);
@@ -13,7 +13,7 @@ export async function fetchQuizById(quizId: string) {
 
 let cachedQuizzesSnapshot: QuerySnapshot;
 
-// ID順に並べ替えられたクイズから指定された番号のクイズを読み込んで返します。一度読み込まれたクイズは自動的にキャッシュされます。
+/** ID順に並べ替えられたクイズから指定された番号のクイズを読み込んで返します。一度読み込まれたクイズは自動的にキャッシュされます。 */
 export async function fetchQuizByIndex(index: number) {
   const quizzesRef = collection(db, "quizzes");
   if (cachedQuizzesSnapshot == undefined) {
@@ -30,7 +30,7 @@ export async function fetchQuizByIndex(index: number) {
   }
 }
 
-// クイズ一覧を読み込んで返します。クイズはID順にソートされます。一度読み込まれたクイズは自動的にキャッシュされます。
+/** クイズ一覧を読み込んで返します。クイズはID順にソートされます。一度読み込まれたクイズは自動的にキャッシュされます。 */
 export async function fetchQuizzes() {
   const quizzesRef = collection(db, "quizzes");
   if (cachedQuizzesSnapshot == undefined) {
