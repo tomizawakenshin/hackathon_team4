@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchTeamById } from "@/logics/fetchTeams";
-
-interface TeamScore {
-  teamId: string;
-  matchRate: number;
-}
+import { TeamScore } from "@/logics/totalScore";
 
 interface TeamData {
   name: string;
@@ -26,7 +22,7 @@ export const useFetchTeamsData = (scores: TeamScore[]) => {
     };
 
     fetchTeamsData();
-  }, [scores]);
+  }, []);
 
   return teams;
 };

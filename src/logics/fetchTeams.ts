@@ -3,7 +3,7 @@ import { db } from "./firebase";
 import { Team } from "./types/team";
 
 /** 現在のチーム一覧を返します。 */
-export async function fetchTeams() {
+export async function fetchTeams(): Promise<Team[]> {
   const teamsRef = collection(db, "teams");
   const teamsSnapshot = await getDocs(teamsRef);
   const teams = teamsSnapshot.docs.map((teamSnapshot) => {
