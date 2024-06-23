@@ -10,7 +10,7 @@ function decodeQueryToJson(query: string) {
 export default function useScoresSearchParams() {
   const [scores, setScores] = useState<TeamScore[]>()
   const searchParams = useSearchParams();
-  const queryScore = searchParams.get("score");
+  const queryScore = searchParams.get("scores");
   if (queryScore == null) throw new ReferenceError("Score query is not set");
   try {
     const decodedScore = decodeQueryToJson(queryScore) as TeamScore[];

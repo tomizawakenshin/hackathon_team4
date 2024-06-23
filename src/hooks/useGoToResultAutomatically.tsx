@@ -7,7 +7,7 @@ export default function useGoToResultAutomatically() {
   useEffect(() => {
     startWatchingQuizCompletedUsers((finalScores) => {
       const finalScoresQuerry = encodeURIComponent(JSON.stringify(finalScores));
-      router.push(`/result?score=${finalScoresQuerry}`);
+      router.push(`/result?scores=${finalScoresQuerry}`);
     });
   }, []);
 }
