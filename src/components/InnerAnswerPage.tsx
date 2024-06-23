@@ -13,6 +13,7 @@ import { getIndexParams } from "@/utils/getIndexParams";
 import QuizQuestion from "./QuizQuestion";
 import QuizOptions from "./QuizOptions";
 import SubmitButton from "./SubmitButton";
+import { turnOnQuizCompletedFlag } from "@/logics/server/turnOnQuizCompletedFlag";
 
 const InnerAnswerPage: React.FC = () => {
   const router = useRouter();
@@ -28,8 +29,9 @@ const InnerAnswerPage: React.FC = () => {
     if (quiz == undefined) throw new Error("Quiz is not fetched yet");
 
     const currentTeamId = await fetchCurrentTeamId(user.uid);
-    submitAnswer(quiz.id, currentTeamId, user.uid, selectedOption);
+    submitAnswer(quiz.id, user.uid, currentTeamId, selectedOption);
     if (quizIndex >= (await fetchQuizzes()).length - 1) {
+      await turnOnQuizCompletedFlag(user.uid);
       router.push(`/result-waiting`);
     } else {
       router.push(`/answer?index=${quizIndex + 1}`);
@@ -37,7 +39,7 @@ const InnerAnswerPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-green-300 text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-green-300 text-white">
       <QuizQuestion question={quiz.question} />
       <QuizOptions
         options={quiz.options}

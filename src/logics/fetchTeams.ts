@@ -5,5 +5,16 @@ import { db } from "./firebase";
 export async function fetchTeams() {
   const teamsRef = collection(db, "teams");
   const teamsSnapshot = await getDocs(teamsRef);
-  return teamsSnapshot.docs;
+  const teams = teamsSnapshot.docs.map((teamSnapshot) => {
+    const teamData = teamSnapshot.data();
+
+    if (teamData.id == undefined) throw new ReferenceError("Id does not exist on database");
+    if (teamData.name == undefined) throw new ReferenceError("Name does not exist on database");
+
+    return {
+      id: teamData.id,
+      name: teamData.name,
+    };
+  });
+  return teams;
 }
