@@ -9,29 +9,6 @@ interface Props {
   teams: Team[];
 }
 const TeamButtons = (props: Props) => {
-  // const JoinTeam = async (teamNum: Number) => {
-  //   try {
-  //     const docRef = await addDoc(collection(db, `Teams/team${teamNum}/Member`), {
-  //       user_id: `${user?.uid}`,
-  //     });
-  //   } catch (err) {
-  //     console.log("エラーを検知しました", err);
-  //   }
-  // };
-  //
-  // const renderButtons = () => {
-  //   return Array.from({ length: teamsCount }).map((_, index) => (
-  //     <button
-  //       key={index}
-  //       className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-  //       onClick={() => JoinTeam(index + 1)} // Adjust JoinTeam function as needed
-  //     >
-  //       team-{index + 1}
-  //     </button>
-  //   ));
-  // };
-
-
   const [user] = useAuthState(auth);
 
   function buttonClickHandler(team: Team) {
