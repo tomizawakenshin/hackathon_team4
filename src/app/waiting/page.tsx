@@ -1,5 +1,8 @@
 "use client";
 
+import { subscribeToGameStartAndNavigate } from "@/logics/GoPostpage";
+import { auth } from "@/logics/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { useDisableScroll } from "@/hooks/useDisableScroll";
 import { handleStartGame } from "@/logics/FetchStartAPI";
@@ -12,12 +15,9 @@ import TextSection from "@/components/TextSection";
 
 const WaitingPage: React.FC = () => {
   useDisableScroll();
-
+  const [user] = useAuthState(auth);
   useEffect(() => {
-    const unsubscribe = listenToGameStart(() => {
-      goToPage("/post");
-      handleStartGame();
-    });
+    const unsubscribe = subscribeToGameStartAndNavigate((user?.uid) || "user is not defined");
     // development buildではuseEffectは2回実行されるそうです
     // https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development
 
@@ -25,7 +25,7 @@ const WaitingPage: React.FC = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center bg-gray-300 text-white">
