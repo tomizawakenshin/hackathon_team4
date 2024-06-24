@@ -1,6 +1,7 @@
 import { collection, doc, setDoc } from "firebase/firestore";
 import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
 import { db } from "@/logics/firebase";
+import { goToPage } from "./server/goToPage";
 
 export const submitQuiz = async (user: any, question: string, answers: string[]) => {
     if (!user?.uid) throw new ReferenceError("ユーザーIDが取得できませんでした。");
@@ -22,6 +23,7 @@ export const submitQuiz = async (user: any, question: string, answers: string[])
             teamId: teamID,
         });
         await setDoc(quizPostedTeamsDocRef, { teamId: teamID });
+        goToPage('/waiting');
     } catch (error) {
         throw new ReferenceError(`Error adding quizzes Document: ${error}`);
     }
