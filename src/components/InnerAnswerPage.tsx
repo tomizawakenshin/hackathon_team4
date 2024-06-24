@@ -10,10 +10,14 @@ import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
 import { useDisableScroll } from "@/hooks/useDisableScroll";
 import { useFetchQuiz } from "@/hooks/useFetchQuiz";
 import { getIndexParams } from "@/utils/getIndexParams";
+import { fetchTeamById } from "@/logics/fetchTeams";
+import { turnOnQuizCompletedFlag } from "@/logics/server/turnOnQuizCompletedFlag";
+import TeamHeader from "./TeamHeader";
 import QuizQuestion from "./QuizQuestion";
 import QuizOptions from "./QuizOptions";
 import SubmitButton from "./SubmitButton";
-import { turnOnQuizCompletedFlag } from "@/logics/server/turnOnQuizCompletedFlag";
+import quizOptionsImage from "@/assets/images/quiz-options.png";
+import bgImage from "@/assets/images/bg-answerPage.jpg";
 
 const InnerAnswerPage: React.FC = () => {
   const router = useRouter();
@@ -21,11 +25,21 @@ const InnerAnswerPage: React.FC = () => {
   const quizIndex = getIndexParams();
   const quiz = useFetchQuiz(quizIndex);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [teamName, setTeamName] = useState<string>("");
   useDisableScroll();
 
   useEffect(() => {
     setSelectedOption(null);
-  }, [quizIndex]);
+    if (quiz && quiz.teamId) {
+      fetchTeamById(quiz.teamId)
+        .then((team) => {
+          setTeamName(team.name);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch team name: ", error);
+        });
+    }
+  }, [quiz]);
 
   const handleSubmit = async () => {
     if (user == undefined || null) throw new Error("You are not logged in!");
@@ -43,7 +57,11 @@ const InnerAnswerPage: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-green-300 text-white">
+    <div
+      className="flex min-h-screen flex-col items-center justify-center bg-green-300 text-white bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgImage.src})` }}
+    >
+      <TeamHeader teamName={teamName} imageSrc={quizOptionsImage.src} />
       <QuizQuestion question={quiz.question} />
       <QuizOptions
         options={quiz.options}
