@@ -1,4 +1,5 @@
 import { auth } from "@/logics/firebase";
+import { goToPage } from "@/logics/server/goToPage";
 import { joinTeam } from "@/logics/server/joinTeam";
 import { Team } from "@/logics/types/team";
 import React from "react";
@@ -15,6 +16,7 @@ const TeamButtons = (props: Props) => {
     if (user == undefined || null) throw new Error("user is not logged in");
     joinTeam(team.id, user.uid);
     console.log("log");
+    goToPage('/waiting');
   }
 
   const buttons = props.teams.map((team) => (

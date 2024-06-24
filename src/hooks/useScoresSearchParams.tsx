@@ -9,7 +9,7 @@ function decodeQueryToJson(query: string) {
 /** urlのクエリからスコア情報を読み取って返します。*/
 export default function useScoresSearchParams() {
   const searchParams = useSearchParams();
-  const queryScore = searchParams.get("scores");
+  const queryScore = searchParams?.get("scores");
   if (queryScore == null) throw new ReferenceError("Score query is not set");
   try {
     const decodedScore = decodeQueryToJson(queryScore) as TeamScore[];
