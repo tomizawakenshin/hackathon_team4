@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { submitAnswer } from "@/logics/server/submitAnswer";
@@ -22,6 +22,10 @@ const InnerAnswerPage: React.FC = () => {
   const quiz = useFetchQuiz(quizIndex);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   useDisableScroll();
+
+  useEffect(() => {
+    setSelectedOption(null);
+  }, [quizIndex]);
 
   const handleSubmit = async () => {
     if (user == undefined || null) throw new Error("You are not logged in!");

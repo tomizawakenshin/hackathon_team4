@@ -19,6 +19,7 @@ const config: Config = {
         "red-300": "#FF5757",
         "green-300": "#7ED957",
         "purple-300": "#CB6CE5",
+        "gray-300": "#555454",
       },
     },
   },
