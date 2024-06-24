@@ -2,6 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { fetchCurrentTeamId } from "./fetchCurrentTeam";
 import { db } from "./firebase";
 
+/** 与えられたユーザーのチームの一番上に登録されているユーザーIDを返します */
 export const getFirstTeamMember = async (uid: string) => {
 
     const currentTeamID = await fetchCurrentTeamId(uid);

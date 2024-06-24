@@ -4,8 +4,14 @@ import QuestionInput from "@/components/QuestionInput";
 import AnswerList from "@/components/AnswerList";
 import SubmitButton from "@/components/SubmitButton";
 import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "@/logics/firebase";
+import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { submitQuiz } from "@/logics/submitQuiz";
 
 const PostPage: React.FC = () => {
+  const [user] = useAuthState(auth);
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -36,6 +42,7 @@ const PostPage: React.FC = () => {
     e.preventDefault();
     console.log(question, answers);
     // 投稿処理を書く
+    await submitQuiz(user, question, answers);
   };
 
   return (
