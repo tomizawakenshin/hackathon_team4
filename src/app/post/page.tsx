@@ -5,9 +5,7 @@ import AnswerList from "@/components/AnswerList";
 import SubmitButton from "@/components/SubmitButton";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "@/logics/firebase";
-import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { auth } from "@/logics/firebase";
 import { submitQuiz } from "@/logics/submitQuiz";
 
 const PostPage: React.FC = () => {
