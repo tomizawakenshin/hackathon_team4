@@ -24,7 +24,8 @@ const QuizOptions: React.FC<QuizOptionsProps> = ({
           onClick={() => {
             setSelectedOption(index);
           }}
-          className={`px-2 py-4 min-w-40 text-2xl font-semibold rounded-lg w-full transition-transform duration-300 focus:outline-none ${buttonColors[index]} ${selectedOption === index ? "scale-90 transform" : "scale-100 transform"} `}
+          className={`px-2 py-4 min-w-52 text-2xl font-semibold rounded-lg w-40 transition-transform duration-300 focus:outline-none ${buttonColors[index]} ${selectedOption === index ? "scale-90 transform" : "scale-100 transform"} `}
+          style={{ marginLeft: `${index * 40}px` }}
         >
           {option}
         </button>
