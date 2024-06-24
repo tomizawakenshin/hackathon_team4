@@ -2,10 +2,19 @@
 
 import { subscribeToGameStartAndNavigate } from "@/logics/GoPostpage";
 import { auth } from "@/logics/firebase";
-import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect } from "react";
+import { useDisableScroll } from "@/hooks/useDisableScroll";
+import { handleStartGame } from "@/logics/FetchStartAPI";
+import { listenToGameStart } from "@/logics/MonitorGameStartFlag";
+import { goToPage } from "@/logics/server/goToPage";
+import sandwichPersonImage from "@/assets/images/person-on-sandwich.gif";
+import matchStickImage from "@/assets/images/match-stick.png";
+import ImageSection from "@/components/ImageSection";
+import TextSection from "@/components/TextSection";
 
-export default function Waiting() {
+const WaitingPage: React.FC = () => {
+  useDisableScroll();
   const [user] = useAuthState(auth);
   useEffect(() => {
     const unsubscribe = subscribeToGameStartAndNavigate((user?.uid) || "user is not defined");
@@ -19,11 +28,16 @@ export default function Waiting() {
   }, [user]);
 
   return (
-    <div className="text-center">
-      <div className="flex justify-center">
-        <div>in チーム1</div>
-      </div>
-      <div>開始までお待ち下さい……………………</div>
+    <div className="flex flex-col items-center justify-center min-h-screen text-center bg-gray-300 text-white">
+      <ImageSection src={sandwichPersonImage.src} alt="sandwich" width="w-64" />
+      <TextSection
+        mainText="スタンバイ..."
+        subText="暇つぶし"
+        description="マッチ棒を2本動かして人にして"
+      />
+      <ImageSection src={matchStickImage.src} alt="match" width="w-96" />
     </div>
   );
-}
+};
+
+export default WaitingPage;
