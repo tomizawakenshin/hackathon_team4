@@ -3,6 +3,7 @@ import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
 import { db } from "@/logics/firebase";
 import { goToPage } from "./server/goToPage";
 
+/** 投稿をDBに格納する関数です */
 export const submitQuiz = async (user: any, question: string, answers: string[]) => {
     if (!user?.uid) throw new ReferenceError("ユーザーIDが取得できませんでした。");
 
