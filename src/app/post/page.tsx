@@ -7,21 +7,31 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/logics/firebase";
 import { submitQuiz } from "@/logics/submitQuiz";
+import { useDisableScroll } from "@/hooks/useDisableScroll";
+import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
+import { fetchTeamById } from "@/logics/fetchTeams";
+import TeamHeader from "@/components/TeamHeader";
+import bgImage from "@/assets/images/bg-postPage.jpg";
 
 const PostPage: React.FC = () => {
   const [user] = useAuthState(auth);
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [teamName, setTeamName] = useState<string>("");
+  useDisableScroll();
 
   useEffect(() => {
-    // スクロールを禁止する
-    document.body.style.overflow = "hidden";
-    return () => {
-      // クリーンアップ時に元に戻す
-      document.body.style.overflow = "auto";
+    // チーム名を取得する
+    const fetchTeamName = async () => {
+      if (user) {
+        const teamId = await fetchCurrentTeamId(user.uid);
+        const team = await fetchTeamById(teamId);
+        setTeamName(team.name);
+      }
     };
-  }, []);
+    fetchTeamName();
+  }, [user]);
 
   useEffect(() => {
     // フォームのバリデーションを行う
@@ -44,7 +54,11 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-center bg-blue-300 text-white">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen pt-14 text-center bg-blue-300 text-white bg-cover bg-center"
+      style={{ backgroundImage: `url(${bgImage.src})` }}
+    >
+      <TeamHeader teamName={teamName} />
       <form className="w-full max-w-80 mt-5" onSubmit={handleSubmit}>
         <QuestionInput question={question} setQuestion={setQuestion} />
         <AnswerList answers={answers} handleAnswerChange={handleAnswerChange} />

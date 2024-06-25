@@ -19,7 +19,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       <button
         onClick={handleSubmit}
         disabled={isDisabled}
-        className={`mt-2 w-full max-w-36 px-4 py-2 text-2xl font-semibold text-white rounded-full ${
+        className={`w-full max-w-36 px-4 py-2 text-2xl font-semibold text-white rounded-full ${
           isDisabled ? "bg-gray-400" : "bg-red-300"
         }`}
       >

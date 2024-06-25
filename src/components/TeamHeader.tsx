@@ -1,6 +1,6 @@
 interface TeamHeaderProps {
   teamName: string;
-  imageSrc: string;
+  imageSrc?: string;
 }
 
 const TeamHeader: React.FC<TeamHeaderProps> = ({ teamName, imageSrc }) => {
@@ -9,11 +9,7 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ teamName, imageSrc }) => {
       <span className="px-4 py-2 text-xl font-semibold absolute top-4 left-4">
         {teamName}
       </span>
-      <img
-        src={imageSrc}
-        alt="quizOptions"
-        className="absolute top-2 right-2 w-28"
-      />
+      <img src={imageSrc} alt="" className="absolute top-2 right-2 w-28" />
     </div>
   );
 };
