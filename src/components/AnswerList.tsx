@@ -8,7 +8,7 @@ const AnswerList: React.FC<AnswerListProps> = ({
   handleAnswerChange,
 }) => {
   return (
-    <div className="flex flex-col mt-8">
+    <div className="flex flex-col mt-4">
       <p className="mb-2 text-3xl font-semibold">4つの回答を準備...</p>
       {answers.map((answer, index) => (
         <div key={index}>
