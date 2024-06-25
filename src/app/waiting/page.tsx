@@ -26,8 +26,8 @@ const WaitingPage: React.FC = () => {
     // クリーンアップ関数を返してリスナーを解除
 
     startWatchingQuizPostedTeams(() => {
-      const router = useRouter();
-      router.push("/answer?index=0");
+      console.log("startWatchingQuizPostedTeams: callback function was called!")
+      goToPage("/answer?index=0")
     })
 
     return () => {
