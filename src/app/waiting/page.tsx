@@ -12,6 +12,8 @@ import sandwichPersonImage from "@/assets/images/person-on-sandwich.gif";
 import matchStickImage from "@/assets/images/match-stick.png";
 import ImageSection from "@/components/ImageSection";
 import TextSection from "@/components/TextSection";
+import { startWatchingQuizPostedTeams } from "@/logics/startWatchingQuizPostedTeams";
+import { useRouter } from "next/router";
 
 const WaitingPage: React.FC = () => {
   useDisableScroll();
@@ -22,6 +24,12 @@ const WaitingPage: React.FC = () => {
     // https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development
 
     // クリーンアップ関数を返してリスナーを解除
+
+    startWatchingQuizPostedTeams(() => {
+      const router = useRouter();
+      router.push("/answer?index=0");
+    })
+
     return () => {
       unsubscribe();
     };
