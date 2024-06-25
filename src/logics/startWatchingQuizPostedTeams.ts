@@ -4,7 +4,7 @@ import { Team } from "./types/team";
 import { fetchTeams } from "./fetchTeams";
 
 export async function startWatchingQuizPostedTeams(callback: () => void) {
-  const quizPostedTeamsRef = collection(db, "quiz-posted-teams");
+  const quizPostedTeamsRef = collection(db, "quizPostedTeams");
   onSnapshot(quizPostedTeamsRef, async (quizPostedTeamsSnapshot) => {
     const quizPostedTeamIds = quizPostedTeamsSnapshot.docs.map((doc) => doc.id);
     const teams = await fetchTeams();
