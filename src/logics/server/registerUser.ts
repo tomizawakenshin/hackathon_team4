@@ -15,7 +15,7 @@ export async function registerUser(user: User) {
 /** Firestoreにユーザの情報を登録します。引数にはユーザIDを受け取ります。 */
 export async function registerNewUser(id: string) {
   const userRef = doc(db, "users", id);
-  await setDoc(userRef, { id: id });
+  await setDoc(userRef, { id: id }, { merge: true });
 }
 
 /** Firestoreのユーザ情報にチームIDを登録します。ユーザをチームに追加したいときはこれではなく`joinTeam`を使ってください。 */
