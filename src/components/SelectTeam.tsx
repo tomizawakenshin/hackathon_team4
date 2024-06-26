@@ -18,12 +18,12 @@ const SelectTeam = () => {
     return (
         <div className="bg-green-300 h-screen w-screen text-center">
             <div className="h-[20vh] bg-yellow-300">
-                <h1 className="text-4xl text-block font-mono h-[20vh] flex justify-center items-center"><Image src={teamselecttop} alt="チームをセレクト" className="w-[70vw]" /></h1>
+                <h1 className="text-4xl text-block font-mono h-[20vh] flex justify-center items-center"><Image src={teamselecttop} alt="チームをセレクト" className="w-[70vw] max-w-xs" /></h1>
             </div>
-            <div>
                 <div className="flex items-center justify-center p-4 border-white bottom-1">
-                    <Image src={entry} alt="ENTRY" className="w-[60vw]"/>
+                    <Image src={entry} alt="ENTRY" className="w-[60vw] max-w-xs"/>
                 </div>
+            <div className="px-4">
                 <TeamButtons teams={teams} />
             </div>
         </div>

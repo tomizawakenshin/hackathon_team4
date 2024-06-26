@@ -27,14 +27,14 @@ const TeamButtons = (props: Props) => {
       onClick={() => {
         buttonClickHandler(team);
       }}
-      className="block bg-no-repeat bg-center p-6"
+      className="block bg-no-repeat bg-center py-4 pl-2 pr-4"
       style={{backgroundImage:`url(${hukidashi.src})`}}
     >
       {team.name}
     </button>
   ));
 
-  return <div className="grid grid-cols-2 gap-4 p-4 text-xl font-mono">{buttons}</div>;
+  return <div className="grid grid-cols-2 gap-4 text-2xl font-mono">{buttons}</div>;
 };
 
 export default TeamButtons;
