@@ -31,7 +31,7 @@ const SignInPanels = () => {
         <p className="font-mono text-7xl mb-8 self-end pr-5">せよ</p>
         <button
           onClick={signInWithAnonymous}
-          className="text-2xl p-8 border-2 rounded-full bg-yellow-300 flex items-center justify-center"
+          className="text-2xl p-8 border-2 rounded-full bg-yellow-300 flex items-center justify-center active:bg-gray-400 transition-colors duration-300"
         >
           <Image src={play} alt="" className="h-[5vh] w-full" />
         </button>
