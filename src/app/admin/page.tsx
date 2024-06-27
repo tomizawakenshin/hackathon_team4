@@ -20,12 +20,12 @@ export default function Admin() {
         <h1 className="text-xl font-bold mb-2">管理画面</h1>
         <button
           className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 mr-2"
-          onClick={turnOnIsGameStartFlag}>
+          onClick={() => {turnOnIsGameStartFlag()}}>
           ゲームを開始
         </button>
         <button
           className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 mr-2"
-          onClick={turnOffIsGameStartFlag}>
+          onClick={() => {turnOffIsGameStartFlag()}}>
           ゲームを終了
         </button>
       </div>
