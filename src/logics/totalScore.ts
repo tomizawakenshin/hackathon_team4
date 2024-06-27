@@ -11,6 +11,9 @@ export async function totalScore() {
   const quizAnswers = Array.from(await fetchQuizAnswersArray());
   const teamAnswersArray = classifyByTeam(quizAnswers, teams);
   const finalScores = calculateScore(teamAnswersArray);
+
+  console.log("totalScore: finealScore:");
+  console.log(finalScores);
   return finalScores;
 }
 
@@ -21,13 +24,12 @@ export interface TeamScore {
 }
 
 function calculateScore(teamAnswersArray: TeamAnswers[]) {
-  const finalScores: TeamScore[] = [];
-  teamAnswersArray.forEach((teamAnswers) => {
+  const finalScores: TeamScore[] = teamAnswersArray.map((teamAnswers) => {
     const matchRate = calculateAverageMatchRate(teamAnswers);
-    finalScores.push({
+    return {
       teamId: teamAnswers.teamId,
       matchRate: matchRate,
-    });
+    };
   });
   return finalScores;
 }
@@ -47,10 +49,7 @@ function calculateMatchRate(answers: Answer[]) {
   const answerNumbers = answers.map((answer) => answer.answerNumber);
 
   const answerNumbersLength = answerNumbers.length;
-  const answerNumberPatterns: number[] = [];
-  answerNumbers.forEach((answerNumber) => {
-    if (!answerNumberPatterns.includes(answerNumber)) answerNumberPatterns.push(answerNumber);
-  });
+  const answerNumberPatterns: number[] = Array.from(new Set(answerNumbers));
 
   const matchCounts: number[] = [];
   answerNumberPatterns.forEach((answerNumberPattern) => {
@@ -63,6 +62,7 @@ function calculateMatchRate(answers: Answer[]) {
 
   const greatestMatchCount = matchCounts.toSorted((a, b) => b - a)[0];
 
+  if (answerNumbersLength == 0) throw new Error("No answers is registered in a certain team");
   const matchRate = greatestMatchCount / answerNumbersLength;
 
   return matchRate;
