@@ -25,7 +25,7 @@ function checkIfAllUsersCompletedQuizzes(completedUsersSnapshot: QuerySnapshot, 
 
   let areAllUsersCompleted = 1;
   users.forEach((user) => {
-    if (!completedUserIds.includes(user.id)) areAllUsersCompleted *= 0;
+    if (!completedUserIds.includes(user.id) && user.teamId != undefined) areAllUsersCompleted *= 0;
   });
 
   return areAllUsersCompleted == 1
