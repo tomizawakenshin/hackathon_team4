@@ -3,15 +3,10 @@ import { useDisableScroll } from "@/hooks/useDisableScroll";
 import { useFetchTeamsData } from "@/hooks/useFetchTeamsData";
 // import useScoresSearchParams from "@/hooks/useScoresSearchParams";
 import TeamRanking from "./TeamRanking";
+import useScoresSearchParams from "@/hooks/useScoresSearchParams";
 
 const InnerResultPage: React.FC = () => {
-  // const scores = useScoresSearchParams();
-
-  // ResultPageに渡される配列の例
-  const scores = [
-    { teamId: "ba4Scr1BvgngsiSoBX2O", matchRate: 0.75 },
-    { teamId: "cmMAaITIRsj7oQvNW38b", matchRate: 0.64 },
-  ];
+  const scores = useScoresSearchParams();
 
   const teams = useFetchTeamsData(scores);
   const sortedTeams = [...teams].sort((a, b) => b.matchRate - a.matchRate);
