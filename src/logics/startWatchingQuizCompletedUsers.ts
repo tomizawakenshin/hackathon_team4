@@ -4,7 +4,10 @@ import { fetchUsers } from "./fetchUsers";
 import { TeamScore, totalScore } from "./totalScore";
 import { User } from "./types/user";
 
-/** クイズを全部完了したユーザの監視を開始します。*/
+/**
+ * クイズを全部完了したユーザの監視を開始します。全員がクイズを完了したら結果を集計してcallback関数に渡します。
+ * callback関数にはresultページに遷移する処理などが渡されることを想定しています。
+ * */
 export function startWatchingQuizCompletedUsers(callback: (finalScores: TeamScore[]) => void) {
   const completedUsersRef = collection(db, "quizCompletedUsers");
   onSnapshot(completedUsersRef, async (completedUsersSnapshot) => {
