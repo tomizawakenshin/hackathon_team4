@@ -62,7 +62,7 @@ const InnerAnswerPage: React.FC = () => {
       className="flex min-h-screen flex-col items-center justify-center bg-green-300 text-white bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage.src})` }}
     >
-      <AnswerPage_TeamHeader teamName={"VolareOsaka"} imageSrc={quizOptionsImage.src} />
+      <AnswerPage_TeamHeader teamName={teamName} imageSrc={quizOptionsImage.src} />
       <QuizQuestion question={quiz.question} />
       <QuizOptions
         options={quiz.options}
