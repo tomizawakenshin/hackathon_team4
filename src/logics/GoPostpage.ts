@@ -1,19 +1,17 @@
 import { goToPage } from "@/logics/server/goToPage";
-import { handleStartGame } from "@/logics/FetchStartAPI";
-import { listenToGameStart } from "@/logics/MonitorGameStartFlag";
 import { getFirstTeamMember } from "./getFirstMember";
 import { fetchCurrentTeamId } from "./fetchCurrentTeam";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
+import { startWatchingGameStart } from "./startWatchingGameStart";
 
 export const subscribeToGameStartAndNavigate = (uid: string) => {
-  return listenToGameStart(async () => {
+  return startWatchingGameStart(async () => {
     const FirstMember = await getFirstTeamMember(uid);
     const teamOfUserPostedQuiz = await checkIfTeamOfUserPostedQuiz(uid);
     if (FirstMember === uid && !teamOfUserPostedQuiz) {
       goToPage('/post');
     }
-    handleStartGame();
   });
 };
 
