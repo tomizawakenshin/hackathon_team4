@@ -16,21 +16,14 @@ const WaitingPage: React.FC = () => {
   useDisableScroll();
   const [user] = useAuthState(auth);
   useEffect(() => {
-    const unsubscribe = subscribeToGameStartAndNavigate(
-      user?.uid || "user is not defined"
-    );
     // development buildではuseEffectは2回実行されるそうです
     // https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development
-
-    // クリーンアップ関数を返してリスナーを解除
-
+    subscribeToGameStartAndNavigate(
+      user?.uid || "user is not defined"
+    );
     startWatchingQuizPostedTeams(() => {
       goToPage("/answer?index=0");
     });
-
-    return () => {
-      unsubscribe();
-    };
   }, [user]);
 
   return (

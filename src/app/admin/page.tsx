@@ -1,7 +1,7 @@
 "use client";
 
-import { handleStartGame } from "@/logics/FetchStartAPI";
 import { handleReset } from "@/logics/handleReset";
+import { turnOffIsGameStartFlag, turnOnIsGameStartFlag } from "@/logics/server/controlIsGameStartFlag";
 import { useState } from "react";
 
 export default function Admin() {
@@ -20,8 +20,13 @@ export default function Admin() {
         <h1 className="text-xl font-bold mb-2">管理画面</h1>
         <button
           className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 mr-2"
-          onClick={handleStartGame}>
+          onClick={turnOnIsGameStartFlag}>
           ゲームを開始
+        </button>
+        <button
+          className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 mr-2"
+          onClick={turnOffIsGameStartFlag}>
+          ゲームを終了
         </button>
       </div>
       <div className="border-t border-gray-300 pt-10">
