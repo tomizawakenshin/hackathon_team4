@@ -8,8 +8,8 @@ import { Team } from "./types/team";
 /** スコアを集計して結果を返します。*/
 export async function totalScore() {
   const teams = await fetchTeams();
-  const allAnswersClassifiedByQuizzes = await fetchQuizAnswersArray();
-  const teamAnswersArray = classifyByTeam(allAnswersClassifiedByQuizzes, teams);
+  const quizAnswers = Array.from(await fetchQuizAnswersArray());
+  const teamAnswersArray = classifyByTeam(quizAnswers, teams);
   const finalScores = calculateScore(teamAnswersArray);
   return finalScores;
 }
@@ -69,37 +69,30 @@ function calculateMatchRate(answers: Answer[]) {
 }
 
 function classifyByTeam(quizAnswersArray: QuizAnswers[], teams: Team[]) {
-  const teamAnswersArray: TeamAnswers[] = [];
-  teams.forEach((team) => {
-    const teamAnswers: TeamAnswers = {
-      teamId: team.id,
-      quizzes: [],
-    };
-    quizAnswersArray.forEach((quizAnswers) => {
-      const quizAnswersOfTeam: QuizAnswers = {
+  const teamAnswersArray = teams.map((team): TeamAnswers => {
+    const quizAnswersArrayOfTeam = quizAnswersArray.map((quizAnswers): QuizAnswers => {
+      const answersOfTeam = quizAnswers.answers.filter((answer) => answer.teamId == team.id);
+      return {
         quizId: quizAnswers.quizId,
-        answers: [],
+        answers: answersOfTeam
       };
-      quizAnswers.answers.forEach((answer) => {
-        if (answer.teamId == team.id) quizAnswersOfTeam.answers.push(answer);
-      });
-      teamAnswers.quizzes.push(quizAnswersOfTeam);
     });
-    teamAnswersArray.push(teamAnswers);
+    return {
+      teamId: team.id,
+      quizzes: quizAnswersArrayOfTeam,
+    };
   });
   return teamAnswersArray;
 }
 
 async function fetchQuizAnswersArray() {
   const quizzes = await fetchQuizzes();
-  const quizAnswersArray: QuizAnswers[] = [];
-  quizzes.forEach(async (quiz) => {
-    const answers = await fetchAnswers(quiz.id);
-    quizAnswersArray.push({
+  const quizAnswersArray: QuizAnswers[] = await Promise.all(quizzes.map(async (quiz): Promise<QuizAnswers> => {
+    return {
       quizId: quiz.id,
-      answers: answers,
-    });
-  });
+      answers: await fetchAnswers(quiz.id)
+    }
+  }));
   return quizAnswersArray;
 }
 
