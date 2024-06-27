@@ -27,7 +27,7 @@ const SignInPanels = () => {
           backgroundImage: `url(${bgtopPagePC.src})`,
         }}
       />
-      <div className="relative text-center max-w-screen-sm mx-auto h-full flex flex-col justify-center items-center">
+      <div className="relative font-bold text-center max-w-screen-sm mx-auto h-full flex flex-col justify-center items-center">
         <h1 className="font-mono text-xl mb-8">powered by 征夷大将軍</h1>
         <p className="font-mono text-7xl mb-8">チームの</p>
         <p className="font-mono text-7xl mb-8 self-start pl-5">

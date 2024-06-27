@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
 
@@ -16,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <title>集結の覇者</title>
+      </Head>
       <body className={inter.className}>{children}</body>
     </html>
   );
