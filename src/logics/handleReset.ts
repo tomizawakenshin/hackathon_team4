@@ -2,6 +2,7 @@
 
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
+import { turnOffIsGameStartFlag } from "./server/controlIsGameStartFlag";
 
 /** DBを一番デフォルトの状態に戻す処理が書かれています */
 export const handleReset = async () => {
@@ -65,6 +66,9 @@ export const handleReset = async () => {
             deleteDoc(doc(db, 'users', docSnapshot.id))
         );
         await Promise.all(deleteUsers);
+
+        // isGameStartをリセット
+        turnOffIsGameStartFlag();
 
         console.log('All documents have been deleted');
     } catch (error) {

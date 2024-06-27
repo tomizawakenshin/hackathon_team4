@@ -4,6 +4,7 @@ import { db } from "./firebase";
 export function startWatchingGameStart(callback: () => void) {
   const flagsRef = doc(db, "flags", "flags");
   onSnapshot(flagsRef, (flagsSnapshot) => {
+    console.log("startWatchingGameStart:flags doc has changed!")
     const flagsData = flagsSnapshot.data();
     if (flagsData == undefined) throw new ReferenceError("flags collection does not have any data");
     if (flagsData.isGameStart == undefined) return;
