@@ -73,7 +73,6 @@ const InnerAnswerPage: React.FC = () => {
         selectedOption={selectedOption}
         buttonText="回答!"
       />
-      <div>{user?.uid}</div>
     </div>
   );
 };
