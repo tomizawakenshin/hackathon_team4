@@ -1,9 +1,9 @@
 import bgImage from "@/assets/images/bg-resultPage.jpg";
 import { useDisableScroll } from "@/hooks/useDisableScroll";
 import { useFetchTeamsData } from "@/hooks/useFetchTeamsData";
-// import useScoresSearchParams from "@/hooks/useScoresSearchParams";
 import TeamRanking from "./TeamRanking";
 import useScoresSearchParams from "@/hooks/useScoresSearchParams";
+import { TeamScore } from "@/logics/totalScore";
 
 const InnerResultPage: React.FC = () => {
   const scores = useScoresSearchParams();
@@ -15,13 +15,16 @@ const InnerResultPage: React.FC = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center"
+      className="flex min-h-screen flex-col items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage.src})` }}
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-10"></div>
-      <div className="z-10 flex flex-col items-center w-full max-w-2xl p-8">
+      <div className="absolute left-0 top-0 h-full w-full bg-white bg-opacity-10"></div>
+      <div className="z-10 flex w-full max-w-2xl flex-col items-center p-8">
         <h1 className="text-5xl font-bold text-orange-500">結果は...</h1>
-        <TeamRanking teams={sortedTeams} maxMatchRate={maxMatchRate} />
+        <TeamRanking
+          teams={sortedTeams}
+          maxMatchRate={maxMatchRate}
+        />
       </div>
     </div>
   );
