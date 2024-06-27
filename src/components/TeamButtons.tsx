@@ -4,7 +4,7 @@ import { joinTeam } from "@/logics/server/joinTeam";
 import { Team } from "@/logics/types/team";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import hukidashi from "@/assets/images/hukidashi.svg";
 
 interface Props {
   teams: Team[];
@@ -16,7 +16,7 @@ const TeamButtons = (props: Props) => {
     if (user == undefined || null) throw new Error("user is not logged in");
     joinTeam(team.id, user.uid);
     console.log("log");
-    goToPage('/waiting');
+    goToPage("/waiting");
   }
 
   const buttons = props.teams.map((team) => (
@@ -25,13 +25,16 @@ const TeamButtons = (props: Props) => {
       onClick={() => {
         buttonClickHandler(team);
       }}
-      className="rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+      className="block bg-no-repeat bg-center py-4 pr-3  text-xl"
+      style={{ backgroundImage: `url(${hukidashi.src})` }}
     >
       {team.name}
     </button>
   ));
 
-  return <div>{buttons}</div>;
+  return (
+    <div className="grid grid-cols-2 gap-y-4 text-2xl font-mono">{buttons}</div>
+  );
 };
 
 export default TeamButtons;

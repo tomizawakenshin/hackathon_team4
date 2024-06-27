@@ -4,7 +4,10 @@ import { fetchUsers } from "./fetchUsers";
 import { TeamScore, totalScore } from "./totalScore";
 import { User } from "./types/user";
 
-/** クイズを全部完了したユーザの監視を開始します。*/
+/**
+ * クイズを全部完了したユーザの監視を開始します。全員がクイズを完了したら結果を集計してcallback関数に渡します。
+ * callback関数にはresultページに遷移する処理などが渡されることを想定しています。
+ * */
 export function startWatchingQuizCompletedUsers(callback: (finalScores: TeamScore[]) => void) {
   const completedUsersRef = collection(db, "quizCompletedUsers");
   onSnapshot(completedUsersRef, async (completedUsersSnapshot) => {
@@ -22,7 +25,7 @@ function checkIfAllUsersCompletedQuizzes(completedUsersSnapshot: QuerySnapshot, 
 
   let areAllUsersCompleted = 1;
   users.forEach((user) => {
-    if (!completedUserIds.includes(user.id)) areAllUsersCompleted *= 0;
+    if (!completedUserIds.includes(user.id) && user.teamId != undefined) areAllUsersCompleted *= 0;
   });
 
   return areAllUsersCompleted == 1

@@ -17,7 +17,7 @@ const TeamRanking: React.FC<TeamRankingProps> = ({ teams, maxMatchRate }) => {
 
   return (
     <motion.div
-      className="flex flex-col gap-1 w-full border-l-8 border-black py-6"
+      className="flex w-full flex-col gap-1 border-l-8 border-black py-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -30,7 +30,7 @@ const TeamRanking: React.FC<TeamRankingProps> = ({ teams, maxMatchRate }) => {
         return (
           <motion.div
             key={team.name}
-            className="flex items-center mb-2 relative"
+            className="relative mb-2 flex items-center"
             initial="hidden"
             animate="visible"
             variants={itemVariants}
@@ -38,17 +38,13 @@ const TeamRanking: React.FC<TeamRankingProps> = ({ teams, maxMatchRate }) => {
             style={{ width }}
           >
             <div
-              className={`flex-1 py-2 px-4 font-bold text-white ${getColorClass(index)}`}
+              className={`flex-1 overflow-hidden overflow-ellipsis whitespace-nowrap px-4 py-2 font-bold text-white ${getColorClass(index)}`}
             >
               {team.name}
             </div>
+            <div className="rotate-90 text-xs font-bold text-gray-500">{Math.round(team.matchRate)}%</div>
             {team.matchRate === maxMatchRate && (
-              <div
-                className="absolute text-yellow-300 font-mono font-bold text-2xl bg-transparent"
-                style={{ left: `calc(${team.matchRate * 0.7}% + 30px)` }}
-              >
-                WIN
-              </div>
+              <div className="bg-transparent font-mono text-xl font-bold text-yellow-300">👑</div>
             )}
           </motion.div>
         );
