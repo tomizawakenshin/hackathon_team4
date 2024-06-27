@@ -1,8 +1,8 @@
 import { signInAnonymously } from "firebase/auth";
 import { auth } from "./firebase";
 
-export const signInWithAnonymous = () => {
-  signInAnonymously(auth)
+export const signInWithAnonymous = async () => {
+  await signInAnonymously(auth)
     .then(
       () => {
         console.log("匿名でサインインしました");

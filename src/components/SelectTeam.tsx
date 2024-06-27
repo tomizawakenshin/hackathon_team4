@@ -7,7 +7,7 @@ import teamselecttop from "@/assets/images/teamselecttop.png";
 import entry from "@/assets/images/entry.png";
 import Image from "next/image";
 
-const SelectTeam = () => {
+const SelectTeamPanel = () => {
   const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
@@ -35,4 +35,4 @@ const SelectTeam = () => {
   );
 };
 
-export default SelectTeam;
+export default SelectTeamPanel;
