@@ -7,13 +7,13 @@ import { turnOffIsGameStartFlag } from "./server/controlIsGameStartFlag";
 /** DBを一番デフォルトの状態に戻す処理が書かれています */
 export const handleReset = async () => {
     try {
-        //quizPostedTeamsのドキュメントをすべて消去する
-        const quizPostedTeamsCollectionRef = collection(db, 'quizPostedTeams');
-        const quizPostedTeamsSnapShot = await getDocs(quizPostedTeamsCollectionRef);
-        const deleteQuizPostedTeams = quizPostedTeamsSnapShot.docs.map((docSnapshot) =>
-            deleteDoc(doc(db, 'quizPostedTeams', docSnapshot.id))
-        );
-        await Promise.all(deleteQuizPostedTeams);
+        // //quizPostedTeamsのドキュメントをすべて消去する
+        // const quizPostedTeamsCollectionRef = collection(db, 'quizPostedTeams');
+        // const quizPostedTeamsSnapShot = await getDocs(quizPostedTeamsCollectionRef);
+        // const deleteQuizPostedTeams = quizPostedTeamsSnapShot.docs.map((docSnapshot) =>
+        //     deleteDoc(doc(db, 'quizPostedTeams', docSnapshot.id))
+        // );
+        // await Promise.all(deleteQuizPostedTeams);
 
         //quizCompletedUsersのドキュメントをすべて消去する
         const quizCompletedUsersRef = collection(db, 'quizCompletedUsers');
