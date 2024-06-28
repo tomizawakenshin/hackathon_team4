@@ -5,9 +5,10 @@ import { useEffect } from "react";
 export default function useGoToResultAutomatically() {
   const router = useRouter();
   useEffect(() => {
-    startWatchingQuizCompletedUsers((finalScores) => {
+    const unsubscribe = startWatchingQuizCompletedUsers((finalScores) => {
       const finalScoresQuerry = encodeURIComponent(JSON.stringify(finalScores));
       router.push(`/result?scores=${finalScoresQuerry}`);
     });
+    return unsubscribe;
   }, []);
 }

@@ -3,10 +3,10 @@ import { db } from "./firebase";
 import { Team } from "./types/team";
 import { fetchTeams } from "./fetchTeams";
 
-export async function startWatchingQuizPostedTeams(callback: () => void) {
+export  function startWatchingQuizPostedTeams(callback: () => void) {
   const quizPostedTeamsRef = collection(db, "quizPostedTeams");
 
-  onSnapshot(quizPostedTeamsRef, async (quizPostedTeamsSnapshot) => {
+  const unsubscribe = onSnapshot(quizPostedTeamsRef, async (quizPostedTeamsSnapshot) => {
     console.log("startWatchingQuizPostedTeams: quizPostedTeams on firestore has changed!")
 
     const quizPostedTeamIds = quizPostedTeamsSnapshot.docs.map((doc) => doc.id);
@@ -14,6 +14,8 @@ export async function startWatchingQuizPostedTeams(callback: () => void) {
     const areAllTeamsPostedQuiz = checkIfAllTeamsPostedQuiz(teams, quizPostedTeamIds);
     if (areAllTeamsPostedQuiz) callback();
   });
+
+  return unsubscribe;
 }
 
 export function checkIfAllTeamsPostedQuiz(teams: Team[], quizPostedTeamIds: string[]) {
