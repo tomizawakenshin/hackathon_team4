@@ -22,9 +22,16 @@ const WaitingPage: React.FC = () => {
     // subscribeToGameStartAndNavigate(
     //   user?.uid || "user is not defined"
     // );
-    startWatchingQuizPostedTeams(() => {
+    
+    const unsubscribeQuizPostedTeams = startWatchingQuizPostedTeams(() => {
       goToPage("/answer?index=0");
     });
+
+    function unsubscribe() {
+      unsubscribeQuizPostedTeams();
+    }
+
+    return unsubscribe;
   }, [user]);
 
   return (
