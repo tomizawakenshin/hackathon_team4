@@ -29,7 +29,7 @@ const TeamButtons = (props: Props) => {
       onClick={() => {
         buttonClickHandler(team);
       }}
-      className="bg-no-repeat bg-center py-4 pr-3 text-xl flex items-center justify-center transition-transform transform active:scale-95"
+      className="bg-no-repeat bg-center py-4 pr-3 text-xl flex items-center justify-center transition-transform transform filter active:scale-95 active:brightness-90"
       style={{ backgroundImage: `url(${hukidashi.src})` }}
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
