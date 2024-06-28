@@ -41,6 +41,23 @@ export const handleReset = async () => {
         //
         // await Promise.all(deleteQuizzesPromise);
 
+        //quizzesのanswersを削除する
+        const quizzesCollectionRef = collection(db, "quizzes");
+        const quizzesSnapshot = await getDocs(quizzesCollectionRef);
+
+        const quizDeletePromise = quizzesSnapshot.docs.map(async (quizDoc) => {
+            const answersCollectionRef = collection(db, 'quizzes', quizDoc.id, 'answers');
+
+            const answersSnapshot = await getDocs(answersCollectionRef);
+
+            const answerDeletePromise = answersSnapshot.docs.map(async (answerDoc) => {
+                deleteDoc(doc(db, 'quizzes', quizDoc.id, 'answers', answerDoc.id));
+            })
+
+            await Promise.all(answerDeletePromise);
+        })
+        await Promise.all(quizDeletePromise);
+
         //teamsのmembersを削除する
         const teamsCollectionRef = collection(db, "teams");
         const teamsSnapshot = await getDocs(teamsCollectionRef);
