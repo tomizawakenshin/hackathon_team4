@@ -7,18 +7,13 @@ import { submitAnswer } from "@/logics/server/submitAnswer";
 import { auth } from "@/logics/firebase";
 import { fetchQuizzes } from "@/logics/fetchQuiz";
 import { fetchCurrentTeamId } from "@/logics/fetchCurrentTeam";
-import { useDisableScroll } from "@/hooks/useDisableScroll";
 import { useFetchQuiz } from "@/hooks/useFetchQuiz";
 import { getIndexParams } from "@/utils/getIndexParams";
 import { fetchTeamById } from "@/logics/fetchTeams";
 import { turnOnQuizCompletedFlag } from "@/logics/server/turnOnQuizCompletedFlag";
-import TeamHeader from "./TeamHeader";
-import QuizQuestion from "./QuizQuestion";
 import QuizOptions from "./QuizOptions";
 import SubmitButton from "./SubmitButton";
 import quizOptionsImage from "@/assets/images/quiz-options.png";
-import bgImage from "@/assets/images/bg-answerPage.jpg";
-import AnswerPage_TeamHeader from "./AnswerPage_TeamHeader";
 
 const InnerAnswerPage: React.FC = () => {
   const router = useRouter();
@@ -27,7 +22,6 @@ const InnerAnswerPage: React.FC = () => {
   const quiz = useFetchQuiz(quizIndex);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [teamName, setTeamName] = useState<string>("");
-  useDisableScroll();
 
   useEffect(() => {
     setSelectedOption(null);
@@ -58,12 +52,18 @@ const InnerAnswerPage: React.FC = () => {
   };
 
   return (
-    <div
-      className="flex min-h-screen flex-col items-center justify-center bg-green-300 text-white bg-cover bg-center"
-      style={{ backgroundImage: `url(${bgImage.src})` }}
-    >
-      <AnswerPage_TeamHeader teamName={teamName} imageSrc={quizOptionsImage.src} />
-      <QuizQuestion question={quiz.question} />
+    <div className="z-0 bg-green-300 text-center text-white">
+      <div className="flex h-36 w-36 items-center justify-center bg-purple-300 font-bold [clip-path:polygon(20%_0,100%_20%,80%_100%,0_80%)]">
+        「{teamName}」からの出題です！
+      </div>
+      <div className="absolute right-1 top-1 h-36 w-36">
+        <img
+          src={quizOptionsImage.src}
+          alt=""
+        />
+      </div>
+      <h1 className="mb-6 text-3xl font-bold">問題!</h1>
+      <p className="text-xl font-semibold">{quiz.question}</p>
       <QuizOptions
         options={quiz.options}
         selectedOption={selectedOption}
@@ -74,6 +74,7 @@ const InnerAnswerPage: React.FC = () => {
         selectedOption={selectedOption}
         buttonText="回答!"
       />
+      <div className="h-32" />
     </div>
   );
 };
