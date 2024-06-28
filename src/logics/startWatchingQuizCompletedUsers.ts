@@ -10,13 +10,14 @@ import { User } from "./types/user";
  * */
 export function startWatchingQuizCompletedUsers(callback: (finalScores: TeamScore[]) => void) {
   const completedUsersRef = collection(db, "quizCompletedUsers");
-  onSnapshot(completedUsersRef, async (completedUsersSnapshot) => {
+  const unsubscribe = onSnapshot(completedUsersRef, async (completedUsersSnapshot) => {
     const users = await fetchUsers();
     const areAllUsersCompleted = checkIfAllUsersCompletedQuizzes(completedUsersSnapshot, users);
     if (!areAllUsersCompleted) return;
     const finalScores = await totalScore();
     callback(finalScores);
   });
+  return unsubscribe;
 }
 
 function checkIfAllUsersCompletedQuizzes(completedUsersSnapshot: QuerySnapshot, users: User[]) {

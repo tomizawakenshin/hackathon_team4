@@ -18,12 +18,20 @@ const WaitingPage: React.FC = () => {
   useEffect(() => {
     // development buildではuseEffectは2回実行されるそうです
     // https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development
-    subscribeToGameStartAndNavigate(
+    const unsubscribeGameStartAndNavegate = subscribeToGameStartAndNavigate(
       user?.uid || "user is not defined"
     );
-    startWatchingQuizPostedTeams(() => {
+
+    const unsubscribeQuizPostedTeams = startWatchingQuizPostedTeams(() => {
       goToPage("/answer?index=0");
     });
+
+    function unsubscribe() {
+      unsubscribeGameStartAndNavegate();
+      unsubscribeQuizPostedTeams();
+    }
+
+    return unsubscribe;
   }, [user]);
 
   return (

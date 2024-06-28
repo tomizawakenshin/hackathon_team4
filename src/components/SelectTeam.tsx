@@ -12,7 +12,8 @@ const SelectTeamPanel = () => {
 
   useEffect(() => {
     fetchTeams().then((teams) => setTeams(teams));
-    startWatchingAuthStateChange();
+    const unsubscribe = startWatchingAuthStateChange();
+    return unsubscribe;
   }, []);
   return (
     <div className="bg-green-300 h-screen w-screen text-center">
