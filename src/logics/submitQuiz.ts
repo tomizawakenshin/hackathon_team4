@@ -29,3 +29,25 @@ export const submitQuiz = async (user: any, question: string, answers: string[])
         throw new ReferenceError(`Error adding quizzes Document: ${error}`);
     }
 };
+
+/** 投稿をDBに格納する関数です。引数にはチームIDを渡します。 */
+export const submitQuizByTeamId = async (teamId: string, question: string, answers: string[]) => {
+    try {
+        const quizColRef = collection(db, "quizzes");
+        const quizPostedTeamsColRef = collection(db, "quizPostedTeams");
+
+        const quizzesDocRef = doc(quizColRef);
+        const quizPostedTeamsDocRef = doc(quizPostedTeamsColRef, teamId);
+
+        // setDocを使用してデータを設定
+        await setDoc(quizzesDocRef, {
+            id: quizzesDocRef.id, // 自動生成されたIDをデータに含める
+            options: answers,
+            question: question,
+            teamId: teamId,
+        });
+        await setDoc(quizPostedTeamsDocRef, { teamId: teamId });
+    } catch (error) {
+        throw new ReferenceError(`Error adding quizzes Document: ${error}`);
+    }
+};
