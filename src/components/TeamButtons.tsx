@@ -2,7 +2,7 @@ import { auth } from "@/logics/firebase";
 import { goToPage } from "@/logics/server/goToPage";
 import { joinTeam } from "@/logics/server/joinTeam";
 import { Team } from "@/logics/types/team";
-import React from "react";
+import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import hukidashi from "@/assets/images/hukidashi.svg";
 import { motion } from "framer-motion";
@@ -13,11 +13,13 @@ interface Props {
 
 const TeamButtons = (props: Props) => {
   const [user] = useAuthState(auth);
+  const isProcessing = useRef(false);
 
   function buttonClickHandler(team: Team) {
+    if (isProcessing.current) return;
+    isProcessing.current = true;
     if (user == undefined || null) throw new Error("user is not logged in");
     joinTeam(team.id, user.uid);
-    console.log("log");
     goToPage("/waiting");
   }
 

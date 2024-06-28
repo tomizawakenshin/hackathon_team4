@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { submitAnswer } from "@/logics/server/submitAnswer";
@@ -22,6 +22,7 @@ const InnerAnswerPage: React.FC = () => {
   const quiz = useFetchQuiz(quizIndex);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [teamName, setTeamName] = useState<string>("");
+  const isProcessing = useRef(false);
 
   useEffect(() => {
     setSelectedOption(null);
@@ -37,6 +38,9 @@ const InnerAnswerPage: React.FC = () => {
   }, [quiz]);
 
   const handleSubmit = async () => {
+    if (isProcessing.current) return;
+    isProcessing.current = true;
+
     if (user == undefined || null) throw new Error("You are not logged in!");
     if (selectedOption == null) throw new Error("No option is selected");
     if (quiz == undefined) throw new Error("Quiz is not fetched yet");
