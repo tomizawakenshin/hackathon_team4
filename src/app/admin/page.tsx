@@ -1,5 +1,6 @@
 "use client";
 
+import AdminPost from "@/components/AdminPost";
 import { handleReset } from "@/logics/handleReset";
 import { turnOffIsGameStartFlag, turnOnIsGameStartFlag } from "@/logics/server/controlIsGameStartFlag";
 import { useState } from "react";
@@ -29,6 +30,7 @@ export default function Admin() {
           ゲームを終了
         </button>
       </div>
+      <AdminPost />
       <div className="border-t border-gray-300 pt-10">
         <div className="text-red-600 font-bold mb-2">Danger Zone</div>
         <div className="border border-red-500 p-4 rounded-lg flex justify-center items-center">
