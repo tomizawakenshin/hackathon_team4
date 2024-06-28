@@ -28,6 +28,9 @@ export default function AdminPost() {
     console.log(question, answers);
     // 投稿処理を書く
     await submitQuizByTeamId(teamId, question, answers);
+    setTeamId("");
+    setQuestion("");
+    setAnswers(["", "", "", ""])
   };
 
   const answerInputs = answers.map((answer, index) => (
@@ -41,7 +44,7 @@ export default function AdminPost() {
       <h2 className="font-bold">クイズ出題</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          チームID: <input value={question} onChange={(e) => setTeamId(e.target.value)} className="border-2 mt-2" />
+          チームID: <input value={teamId} onChange={(e) => setTeamId(e.target.value)} className="border-2 mt-2" />
         </div>
         <div>
           問題: <input value={question} onChange={(e) => setQuestion(e.target.value)} className="border-2 mt-2" />

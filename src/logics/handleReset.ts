@@ -23,23 +23,23 @@ export const handleReset = async () => {
         );
         await Promise.all(deleteQuizCompletedUsers);
 
-        //quizzesのドキュメントをすべて削除する
-        const quizzesCollectionRef = collection(db, 'quizzes');
-        const quizzesSnapshot = await getDocs(quizzesCollectionRef);
-        const deleteQuizzesPromise = quizzesSnapshot.docs.map(async (docSnapshot) => {
-            const answerCollectionRef = collection(db, "quizzes", docSnapshot.id, "answers");
-
-            const answerSnapshot = await getDocs(answerCollectionRef);
-
-            const answerDeletePromise = answerSnapshot.docs.map((answerDoc) => {
-                deleteDoc(doc(db, 'quizzes', docSnapshot.id, 'answers', answerDoc.id));
-            })
-            await Promise.all(answerDeletePromise);
-            await deleteDoc(doc(db, 'quizzes', docSnapshot.id))
-        }
-        );
-
-        await Promise.all(deleteQuizzesPromise);
+        // //quizzesのドキュメントをすべて削除する
+        // const quizzesCollectionRef = collection(db, 'quizzes');
+        // const quizzesSnapshot = await getDocs(quizzesCollectionRef);
+        // const deleteQuizzesPromise = quizzesSnapshot.docs.map(async (docSnapshot) => {
+        //     const answerCollectionRef = collection(db, "quizzes", docSnapshot.id, "answers");
+        //
+        //     const answerSnapshot = await getDocs(answerCollectionRef);
+        //
+        //     const answerDeletePromise = answerSnapshot.docs.map((answerDoc) => {
+        //         deleteDoc(doc(db, 'quizzes', docSnapshot.id, 'answers', answerDoc.id));
+        //     })
+        //     await Promise.all(answerDeletePromise);
+        //     await deleteDoc(doc(db, 'quizzes', docSnapshot.id))
+        // }
+        // );
+        //
+        // await Promise.all(deleteQuizzesPromise);
 
         //teamsのmembersを削除する
         const teamsCollectionRef = collection(db, "teams");
